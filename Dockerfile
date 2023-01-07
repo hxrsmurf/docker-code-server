@@ -33,4 +33,6 @@ RUN apt-get install unzip curl vim git python3 python3-pip -yf
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 COPY /config/config.yaml /root/.config/code-server/config.yaml
 RUN git config --global user.email "first.last@example.com" && git config --global user.name "first last" && git config --global core.editor vim
+RUN code-server --install-extension GitHub.vscode-pull-request-github
+RUN code-server --install-extension vscodevim.vim
 ENTRYPOINT ["code-server"]
