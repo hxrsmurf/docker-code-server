@@ -3,7 +3,7 @@ My version of code-server in Docker
 
 # Procedure
 
-1. Update the password in `config/config.yaml`
+1. Update the password, git config email, and git config name in `config/config.yaml`
 2. Run `docker-compose up -d --buld` to build a new image
 3. Access via `https://[ServerIp]:8080`
 
