@@ -1,6 +1,6 @@
 FROM debian:stable-slim as builder
 
-RUN apt-get update 
+RUN apt-get update
 RUN apt-get install curl wget unzip -yf
 
 RUN mkdir /tmp/zips
@@ -14,7 +14,7 @@ RUN cd /tmp/zips && \
 RUN cd /tmp && curl https://releases.hashicorp.com/terraform/1.3.7/terraform_1.3.7_linux_amd64.zip -o terraform.zip && unzip terraform.zip && mv terraform /usr/bin/terraform
 
 # Using non-slim reduces build time, but increases image size by .44 GiB
-FROM node:19 
+FROM node:19
 
 COPY --from=builder /usr/bin/terraform /usr/bin/terraform
 COPY --from=builder /tmp/zips /tmp/zips
@@ -35,4 +35,7 @@ COPY /config/config.yaml /root/.config/code-server/config.yaml
 RUN git config --global user.email "first.last@example.com" && git config --global user.name "first last" && git config --global core.editor vim
 RUN code-server --install-extension GitHub.vscode-pull-request-github
 RUN code-server --install-extension vscodevim.vim
+RUN code-server --install-extension dsznajder.es7-react-js-snippets
+RUN code-server --install-extension hashicorp.terraform
+RUN code-server --install-extension ms-python.python
 ENTRYPOINT ["code-server"]
