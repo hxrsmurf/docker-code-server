@@ -1,0 +1,50 @@
+name: Deploy to Amazon
+
+on:
+  push:
+    branches: [ "**" ]
+
+env:
+  AWS_REGION: us-east-1
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    # runs-on: self-hosted
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: ${{ env.AWS_REGION }}
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+    - name: HashiCorp - Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+      working-directory: ./aws
+
+    # - name: Terraform Validate
+    #   id: validate
+    #   run: terraform validate -no-color
+    #   working-directory: ./aws
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -auto-approve -lock=false
+      continue-on-error: true
+      working-directory: ./aws
