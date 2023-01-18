@@ -38,4 +38,6 @@ RUN code-server --install-extension vscodevim.vim
 RUN code-server --install-extension dsznajder.es7-react-js-snippets
 RUN code-server --install-extension hashicorp.terraform
 RUN code-server --install-extension ms-python.python
+RUN code-server --install-extension bradlc.vscode-tailwindcss
+RUN code-server --install-extension esbenp.prettier-vscode
 ENTRYPOINT ["code-server"]
