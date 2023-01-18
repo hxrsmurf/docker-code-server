@@ -2,7 +2,8 @@ resource "aws_iam_role" "role" {
   name        = "code-server-github-tf"
   description = "IAM Role for Code Server and/or GitHub Actions to Use"
   managed_policy_arns = [
-    "arn:aws:iam::aws:policy/ReadOnlyAccess"
+    "arn:aws:iam::aws:policy/ReadOnlyAccess",
+    "arn:aws:iam::aws:policy/PowerUserAccess"
   ]
   assume_role_policy = jsonencode(
     {
