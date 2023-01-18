@@ -35,7 +35,6 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init
-      workdir
       working-directory: ./aws
 
     - name: Terraform Validate
