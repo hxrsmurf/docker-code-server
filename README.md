@@ -1,4 +1,6 @@
 # docker-code-server
+[![Deploy to Amazon](https://github.com/hxrsmurf/docker-code-server/actions/workflows/aws.yaml/badge.svg)](https://github.com/hxrsmurf/docker-code-server/actions/workflows/aws.yaml)
+
 My version of code-server in Docker
 
 # Procedure
