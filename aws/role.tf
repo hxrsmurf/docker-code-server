@@ -4,17 +4,25 @@ resource "aws_iam_role" "role" {
   managed_policy_arns = [
     "arn:aws:iam::aws:policy/ReadOnlyAccess"
   ]
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
+  assume_role_policy = jsonencode(
+    {
+      Statement = [
+        {
+          Action = "sts:AssumeRole"
+          Effect = "Allow"
+          Principal = {
+            Service = "ec2.amazonaws.com"
+          }
+        },
+        {
+          Action = "sts:AssumeRoleWithWebIdentity"
+          Effect = "Allow"
+          Principal = {
+            Federated = "arn:aws:iam::195663387853:oidc-provider/token.actions.githubusercontent.com"
+          }
+        },
+      ]
+      Version = "2012-10-17"
+    }
+  )
 }
