@@ -1,8 +1,9 @@
 name: Deploy to Amazon
 
 on:
-  push:
-    branches: [ "**" ]
+  workflow_dispatch:
+  #push:
+  #  branches: [ "**" ]
 
 env:
   AWS_REGION: us-east-1
