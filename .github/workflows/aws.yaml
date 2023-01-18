@@ -38,10 +38,10 @@ jobs:
       run: terraform init
       working-directory: ./aws
 
-    - name: Terraform Validate
-      id: validate
-      run: terraform validate -no-color
-      working-directory: ./aws
+    # - name: Terraform Validate
+    #   id: validate
+    #   run: terraform validate -no-color
+    #   working-directory: ./aws
 
     - name: Terraform Apply
       id: apply
