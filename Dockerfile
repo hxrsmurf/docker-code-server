@@ -40,4 +40,6 @@ RUN code-server --install-extension hashicorp.terraform
 RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension bradlc.vscode-tailwindcss
 RUN code-server --install-extension esbenp.prettier-vscode
+RUN code-server --uninstall-extension ms-toolsai.jupyter
+RUN code-server --uninstall-extension ms-python.isort
 ENTRYPOINT ["code-server"]
