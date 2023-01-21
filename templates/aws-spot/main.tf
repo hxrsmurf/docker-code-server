@@ -98,16 +98,65 @@ resource "coder_agent" "dev" {
   auth           = "token"
   dir            = "/home/${lower(data.coder_workspace.me.owner)}"
   os             = "linux"
+  env = {
+    GIT_AUTHOR_NAME = "${var.name}"
+    GIT_COMMITTER_NAME = "${var.name}"
+    GIT_AUTHOR_EMAIL = "${var.email}"
+    GIT_COMMITTER_EMAIL = "${var.email}"
+  }
   startup_script = <<EOT
 #!/bin/sh
 #export HOME=/home/${lower(data.coder_workspace.me.owner)}
+
+# install and start code-server
+curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
+code-server --install-extension GitHub.vscode-pull-request-github
+code-server --install-extension vscodevim.vim
+code-server --install-extension dsznajder.es7-react-js-snippets
+code-server --install-extension hashicorp.terraform
+code-server --install-extension ms-python.python
+code-server --install-extension bradlc.vscode-tailwindcss
+code-server --install-extension esbenp.prettier-vscode
+code-server --uninstall-extension ms-toolsai.jupyter
+code-server --uninstall-extension ms-python.isort
+code-server --auth none --port 13337 | tee code-server-install.log &
 curl -fsSL https://code-server.dev/install.sh | sh
+
+mkdir -p /home/${lower(data.coder_workspace.me.owner)}/repos
+cd /home/${lower(data.coder_workspace.me.owner)}/repos && git clone https://github.com/${var.username}/${var.repo}
+
 code-server --auth none --port 13337 &
 
 # use coder CLI to clone and install dotfiles
 coder dotfiles -y ${var.dotfiles_uri}
 
   EOT
+}
+
+variable "name" {
+  description = "What name should be used for Git?"
+  default = "First Last"
+}
+
+variable "email" {
+  description = "What name should be used for Git?"
+  default = "First.Last@domain.com"
+}
+
+variable "username" {
+  description = "What is your GitHub username?"
+  default = "user"
+}
+
+variable "repo" {
+  description = "What repo to clone?"
+  default = "docker-code-server"
+  validation {
+    condition = contains([
+      "docker-code-server"
+    ], var.repo)
+    error_message = "Invalid repo!"
+  }
 }
 
 # code-server
