@@ -130,7 +130,7 @@ resource "docker_image" "coder_image" {
   }
 
   # Keep alive for other workspaces to use upon deletion
-  keep_locally = true
+  keep_locally = false
 }
 
 resource "docker_container" "workspace" {
