@@ -1,3 +1,7 @@
+variable "dns" {
+  default = ["192.168.1.1"]
+}
+
 variable "name" {
   description = "What name should be used for Git?"
   default = "First Last"
