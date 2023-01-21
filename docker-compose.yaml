@@ -7,3 +7,15 @@ services:
     volumes:
       - ../:/root/repos
     restart: unless-stopped
+  coder:
+    image: ghcr.io/coder/coder:latest
+    group_add:
+      - 115
+    ports:
+        - 4000:7080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./resolv.conf:/etc/resolv.conf
+    environment:
+      CODER_ACCESS_URL: "https://code.hxrsmurf.info"
+      CODER_ADDRESS: "0.0.0.0:7080"
