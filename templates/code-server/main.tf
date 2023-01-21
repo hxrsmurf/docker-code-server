@@ -35,6 +35,7 @@ resource "coder_agent" "main" {
   code-server --uninstall-extension ms-toolsai.jupyter
   code-server --uninstall-extension ms-python.isort
   mkdir -p /home/coder/repos
+  cd /home/coder/repos && git clone https://github.com/${var.username}/${var.repo}
   code-server --auth none
   EOT
 
@@ -79,6 +80,17 @@ variable "email" {
 variable "username" {
   description = "What is your GitHub username?"
   default = "user"
+}
+
+variable "repo" {
+  description = "What repo to clone?"
+  default = "docker-code-server"
+  validation {
+    condition = contains([
+      "docker-code-server"
+    ], var.repo)
+    error_message = "Invalid repo!"
+  }
 }
 
 resource "docker_volume" "home_volume" {
