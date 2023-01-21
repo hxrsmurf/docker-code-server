@@ -40,6 +40,9 @@ RUN cd /tmp/zips && \
     unzip awscliv2.zip && \
     ./aws/install
 
+RUN wget -O /usr/bin/b2 https://github.com/Backblaze/B2_Command_Line_Tool/releases/latest/download/b2-linux && \
+    chmod +x /usr/bin/b2
+
 # Add a user `coder` so that you're not developing as the `root` user
 RUN useradd coder \
     --create-home \
