@@ -12,9 +12,7 @@ variable "region" {
   default     = "us-east-1"
   validation {
     condition = contains([
-      "eu-central-1",
       "us-west-2",
-      "us-east-1"
     ], var.region)
     error_message = "Invalid region!"
   }
