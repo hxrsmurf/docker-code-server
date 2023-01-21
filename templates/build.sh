@@ -1,0 +1,1 @@
+sudo docker build -f coder/images/builder.Dockerfile . --tag builder
