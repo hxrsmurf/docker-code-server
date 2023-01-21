@@ -88,8 +88,7 @@ variable "repo" {
   default = "docker-code-server"
   validation {
     condition = contains([
-      "docker-code-server",
-      "playground-repo"
+      "docker-code-server"
     ], var.repo)
     error_message = "Invalid repo!"
   }
