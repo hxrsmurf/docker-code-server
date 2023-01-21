@@ -20,4 +20,7 @@ RUN cd /tmp/zips && \
     unzip awscliv2.zip && \
     ./aws/install
 
+RUN wget -O /usr/bin/b2 https://github.com/Backblaze/B2_Command_Line_Tool/releases/latest/download/b2-linux && \
+    chmod +x /usr/bin/b2
+
 USER coder
