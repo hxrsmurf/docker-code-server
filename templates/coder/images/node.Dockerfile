@@ -2,7 +2,7 @@ FROM node:19
 RUN apt-get update 
 RUN apt-get install sudo
 # Add a user `coder` so that you're not developing as the `root` user
-RUN mkdir -p /etc/sudoers.d/
+# RUN mkdir -p /etc/sudoers.d/
 RUN mkdir /tmp/zips
 
 RUN cd /tmp/zips && \
