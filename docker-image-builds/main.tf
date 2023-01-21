@@ -33,6 +33,7 @@ resource "coder_agent" "main" {
     #!/bin/bash
 
     mkdir -p /home/coder/repos
+
     # install and start code-server
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
     code-server --install-extension GitHub.vscode-pull-request-github
@@ -142,6 +143,9 @@ resource "docker_container" "workspace" {
   # Use the docker gateway if the access URL is 127.0.0.1
   entrypoint = ["sh", "-c", replace(coder_agent.main.init_script, "/localhost|127\\.0\\.0\\.1/", "host.docker.internal")]
   env        = ["CODER_AGENT_TOKEN=${coder_agent.main.token}"]
+
+  dns = ["192.168.1.1"]
+
   host {
     host = "host.docker.internal"
     ip   = "host-gateway"
