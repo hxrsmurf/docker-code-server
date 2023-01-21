@@ -35,7 +35,7 @@ variable "docker_image" {
   # List of images available for the user to choose from.
   # Delete this condition to give users free text input.
   validation {
-    condition     = contains(["base", "node", "debian"], var.docker_image)
+    condition     = contains(["base", "node", "debian", "python"], var.docker_image)
     error_message = "Invalid Docker image!"
   }
 
