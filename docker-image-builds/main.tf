@@ -77,7 +77,7 @@ variable "email" {
 
 variable "docker_image" {
   description = "What Docker image would you like to use for your workspace?"
-  default     = "kevin"
+  default     = "base"
 
   # List of images available for the user to choose from.
   # Delete this condition to give users free text input.
