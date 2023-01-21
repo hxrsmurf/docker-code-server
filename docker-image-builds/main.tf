@@ -34,6 +34,8 @@ resource "coder_agent" "main" {
 
     mkdir -p /home/coder/repos
 
+    cd /home/coder/repos && git clone https://github.com/${var.username}/${var.repo}
+
     # install and start code-server
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
     code-server --install-extension GitHub.vscode-pull-request-github
@@ -74,6 +76,22 @@ variable "name" {
 variable "email" {
   description = "What name should be used for Git?"
   default = "First.Last@domain.com"
+}
+
+variable "username" {
+  description = "What is your GitHub username?"
+  default = "user"
+}
+
+variable "repo" {
+  description = "What repo to clone?"
+  default = "docker-code-server"
+  validation {
+    condition = contains([
+      "docker-code-server"
+    ], var.repo)
+    error_message = "Invalid repo!"
+  }
 }
 
 variable "docker_image" {
