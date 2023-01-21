@@ -5,6 +5,7 @@ RUN apt install sudo git unzip -y
 
 COPY --from=builder /tmp/terraform /usr/bin/terraform
 COPY --from=builder /tmp/zips /tmp/zips
+COPY --from=builder /tmp/b2 /usr/bin/b2
 
 RUN cd /tmp/zips && \
     unzip aws-sam-cli-linux-x86_64.zip -d sam-installation && \
