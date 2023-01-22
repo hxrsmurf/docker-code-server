@@ -37,6 +37,7 @@ resource "coder_agent" "main" {
     cd /home/coder/repos && git clone https://github.com/${var.username}/${var.repo}
 
     # install and start code-server
+    curl -fsSL https://coder.com/install.sh | sh
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
     code-server --install-extension GitHub.vscode-pull-request-github
     code-server --install-extension vscodevim.vim
