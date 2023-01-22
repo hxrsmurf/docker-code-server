@@ -4,5 +4,6 @@
     "vim.highlightedyank.enable": true,
     "files.trimTrailingWhitespace": true,
     "githubPullRequests.pullBranch": "always",
-    "git.autofetch": true
+    "git.autofetch": true,
+    "githubPullRequests.assignCreated": "${user}"
 }
