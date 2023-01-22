@@ -81,6 +81,9 @@ resource "coder_agent" "dev" {
 #!/bin/sh
 #export HOME=/home/${lower(data.coder_workspace.me.owner)}
 
+mkdir -p /home/${lower(data.coder_workspace.me.owner)}/repos
+cd /home/${lower(data.coder_workspace.me.owner)}/repos && git clone https://github.com/${var.username}/${var.repo}
+
 # install and start code-server
 curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
 code-server --install-extension GitHub.vscode-pull-request-github
@@ -94,9 +97,6 @@ code-server --uninstall-extension ms-toolsai.jupyter
 code-server --uninstall-extension ms-python.isort
 code-server --auth none --port 13337 | tee code-server-install.log &
 curl -fsSL https://code-server.dev/install.sh | sh
-
-mkdir -p /home/${lower(data.coder_workspace.me.owner)}/repos
-cd /home/${lower(data.coder_workspace.me.owner)}/repos && git clone https://github.com/${var.username}/${var.repo}
 
 code-server --auth none --port 13337 &
 
@@ -138,7 +138,7 @@ resource "coder_app" "code-server" {
   slug         = "code-server"
   display_name = "VS Code"
   icon         = "/icon/code.svg"
-  url          = "http://localhost:13337?folder=/home/${lower(data.coder_workspace.me.owner)}"
+  url          = "http://localhost:13337?folder=/home/${lower(data.coder_workspace.me.owner)}/repos"
   subdomain    = false
   share        = "owner"
 
