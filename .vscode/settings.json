@@ -3,5 +3,7 @@
     "vim.smartRelativeLine": true,
     "vim.highlightedyank.enable": true,
     "files.trimTrailingWhitespace": true,
-    "githubPullRequests.pullBranch": "always"
+    "githubPullRequests.pullBranch": "always",
+    "git.autofetch": true,
+    "githubPullRequests.assignCreated": "${user}"
 }
