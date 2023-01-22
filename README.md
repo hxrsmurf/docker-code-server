@@ -12,3 +12,27 @@ My version of code-server in Docker
 # Docs
 - https://github.com/coder/code-server
 - https://hub.docker.com/r/linuxserver/code-server
+
+# Diagram
+```mermaid
+graph TB;
+    subgraph OVH
+        docker-compose -- /var/run/docker.sock --> coder
+    end
+    subgraph templates
+        code-server -- OVH Docker --> Docker
+        aws-spot -- Spot Request --> AWS
+        docker -- Ubuntu --> base
+        docker --> debian
+        docker --> node
+        docker --> python
+    end
+    subgraph extensions
+        vim
+        ghpr[GitHub Pull Requests]
+        Terraform
+        Prettier
+    end
+    coder --> templates
+    templates -- All templates have these --> extensions
+```
