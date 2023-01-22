@@ -7,30 +7,10 @@ terraform {
   }
 }
 
-variable "region" {
-  description = "What region should your workspace live in?"
-  default     = "us-east-1"
-  validation {
-    condition = contains([
-      "us-east-1",
-    ], var.region)
-    error_message = "Invalid region!"
-  }
-}
-
-variable "subnet_id" {
-  description = "What subnet in us-east-1a?"
-  default = "subnet-0d8fa1295c21f9ead"
-}
-
-variable "access_key" {
-  description = "AWS Access Key"
-  default = "access"
-}
-
-variable "secret_key" {
-  description = "AWS Secret Key"
-  default = "secret"
+provider "aws" {
+  region     = var.region
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
 
 locals {
@@ -61,12 +41,6 @@ variable "type" {
   }
 }
 
-provider "aws" {
-  region = var.region
-  access_key = var.access_key
-  secret_key = var.secret_key
-}
-
 data "coder_workspace" "me" {
 }
 
@@ -76,9 +50,8 @@ variable "dotfiles_uri" {
 
   e.g., git@github.com:sharkymark/dotfiles.git
   EOF
-  default = ""
+  default     = ""
 }
-
 
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -94,14 +67,14 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "coder_agent" "dev" {
-  arch           = "amd64"
-  auth           = "token"
-  dir            = "/home/${lower(data.coder_workspace.me.owner)}"
-  os             = "linux"
+  arch = "amd64"
+  auth = "token"
+  dir  = "/home/${lower(data.coder_workspace.me.owner)}"
+  os   = "linux"
   env = {
-    GIT_AUTHOR_NAME = "${var.name}"
-    GIT_COMMITTER_NAME = "${var.name}"
-    GIT_AUTHOR_EMAIL = "${var.email}"
+    GIT_AUTHOR_NAME     = "${var.name}"
+    GIT_COMMITTER_NAME  = "${var.name}"
+    GIT_AUTHOR_EMAIL    = "${var.email}"
     GIT_COMMITTER_EMAIL = "${var.email}"
   }
   startup_script = <<EOT
@@ -135,22 +108,22 @@ coder dotfiles -y ${var.dotfiles_uri}
 
 variable "name" {
   description = "What name should be used for Git?"
-  default = "First Last"
+  default     = "First Last"
 }
 
 variable "email" {
   description = "What name should be used for Git?"
-  default = "First.Last@domain.com"
+  default     = "First.Last@domain.com"
 }
 
 variable "username" {
   description = "What is your GitHub username?"
-  default = "user"
+  default     = "user"
 }
 
 variable "repo" {
   description = "What repo to clone?"
-  default = "docker-code-server"
+  default     = "docker-code-server"
   validation {
     condition = contains([
       "docker-code-server"
@@ -161,13 +134,13 @@ variable "repo" {
 
 # code-server
 resource "coder_app" "code-server" {
-  agent_id      = coder_agent.dev.id
-  slug          = "code-server"
-  display_name  = "VS Code"
-  icon          = "/icon/code.svg"
-  url           = "http://localhost:13337?folder=/home/${lower(data.coder_workspace.me.owner)}"
-  subdomain = false
-  share     = "owner"
+  agent_id     = coder_agent.dev.id
+  slug         = "code-server"
+  display_name = "VS Code"
+  icon         = "/icon/code.svg"
+  url          = "http://localhost:13337?folder=/home/${lower(data.coder_workspace.me.owner)}"
+  subdomain    = false
+  share        = "owner"
 
   healthcheck {
     url       = "http://localhost:13337/healthz"
@@ -243,8 +216,8 @@ resource "aws_spot_instance_request" "dev" {
   availability_zone              = "${var.region}a"
   instance_type                  = lookup(local.aws_instances, var.type)
   instance_interruption_behavior = "terminate"
-  subnet_id = var.subnet_id
-  spot_type = "one-time"
+  subnet_id                      = var.subnet_id
+  spot_type                      = "one-time"
 
   wait_for_fulfillment = true
 
