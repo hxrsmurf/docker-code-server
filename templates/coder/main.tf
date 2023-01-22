@@ -33,21 +33,26 @@ resource "coder_agent" "main" {
     #!/bin/bash
 
     mkdir -p /home/coder/repos
-
     cd /home/coder/repos && git clone https://github.com/${var.username}/${var.repo}
 
-    # install and start code-server
+    # Install coder and code-server
     curl -fsSL https://coder.com/install.sh | sh
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
-    code-server --install-extension GitHub.vscode-pull-request-github
+
+    # Install various VS Code Extensions
     code-server --install-extension vscodevim.vim
-    code-server --install-extension dsznajder.es7-react-js-snippets
+    code-server --install-extension GitHub.vscode-pull-request-github
     code-server --install-extension hashicorp.terraform
-    code-server --install-extension ms-python.python
-    code-server --install-extension bradlc.vscode-tailwindcss
     code-server --install-extension esbenp.prettier-vscode
-    code-server --uninstall-extension ms-toolsai.jupyter
-    code-server --uninstall-extension ms-python.isort
+
+    # Javascript/NodeJS work
+    # code-server --install-extension dsznajder.es7-react-js-snippets
+    # code-server --install-extension bradlc.vscode-tailwindcss
+
+    # Python Extensions - jupyter and isort seem to auto-install sometimes.
+    # code-server --install-extension ms-python.python
+    # code-server --uninstall-extension ms-toolsai.jupyter
+    # code-server --uninstall-extension ms-python.isort
     code-server --auth none --port 13337 | tee code-server-install.log &
   EOT
 }
