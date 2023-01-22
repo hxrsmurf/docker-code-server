@@ -3,6 +3,11 @@ resource "aws_iam_user" "user" {
   path = "/"
 }
 
+resource "aws_iam_user_policy_attachment" "policy-attachment" {
+  user       = aws_iam_user.user.name
+  policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
+}
+
 output "user" {
   value = {
     "url" = "https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/users/details/${aws_iam_user.user.name}"
