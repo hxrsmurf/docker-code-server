@@ -6,7 +6,10 @@ output "role" {
 }
 
 output "secret" {
-  value = aws_iam_access_key.key.secret
+  value = {
+    "id" : aws_iam_access_key.key.id
+    "secret" : aws_iam_access_key.key.secret
+  }
   sensitive = true
 }
 
