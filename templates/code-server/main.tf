@@ -25,17 +25,25 @@ resource "coder_agent" "main" {
   os             = "linux"
   startup_script = <<EOT
   #!/bin/bash
-  code-server --install-extension GitHub.vscode-pull-request-github
-  code-server --install-extension vscodevim.vim
-  code-server --install-extension dsznajder.es7-react-js-snippets
-  code-server --install-extension hashicorp.terraform
-  code-server --install-extension ms-python.python
-  code-server --install-extension bradlc.vscode-tailwindcss
-  code-server --install-extension esbenp.prettier-vscode
-  code-server --uninstall-extension ms-toolsai.jupyter
-  code-server --uninstall-extension ms-python.isort
+
   mkdir -p /home/coder/repos
   cd /home/coder/repos && git clone https://github.com/${var.username}/${var.repo}
+
+  # Install various VS Code Extensions
+  code-server --install-extension vscodevim.vim
+  code-server --install-extension GitHub.vscode-pull-request-github
+  code-server --install-extension hashicorp.terraform
+  code-server --install-extension esbenp.prettier-vscode
+
+  # Javascript/NodeJS work
+  # code-server --install-extension dsznajder.es7-react-js-snippets
+  # code-server --install-extension bradlc.vscode-tailwindcss
+
+  # Python Extensions - jupyter and isort seem to auto-install sometimes.
+  # code-server --install-extension ms-python.python
+  # code-server --uninstall-extension ms-toolsai.jupyter
+  # code-server --uninstall-extension ms-python.isort
+
   code-server --auth none
   EOT
 
