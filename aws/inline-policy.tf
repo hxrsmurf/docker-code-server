@@ -3,13 +3,7 @@ data "aws_iam_policy_document" "inline_policy" {
   statement {
     actions = [
       "iam:GetUserPolicy",
-      "iam:ListAttachedUserPolicies"
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    actions = [
+      "iam:ListAttachedUserPolicies",
       "iam:GetRole",
       "iam:GetRolePolicy",
       "iam:ListRolePolicies",
