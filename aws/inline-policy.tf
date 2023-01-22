@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "inline_policy" {
       "iam:ListRolePolicies",
       "iam:ListAttachedRolePolicies"
     ]
-    resources = [aws_iam_role.role.arn]
+    resources = ["*"]
   }
 
   statement {
