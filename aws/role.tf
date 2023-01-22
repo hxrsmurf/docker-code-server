@@ -27,10 +27,3 @@ resource "aws_iam_role" "role" {
     }
   )
 }
-
-output "role" {
-  value = {
-    "arn" : aws_iam_role.role.arn,
-    "url" : "https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/roles/details/${aws_iam_role.role.name}"
-  }
-}
