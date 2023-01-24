@@ -19,8 +19,6 @@ services:
     environment:
       CODER_ACCESS_URL: "https://code.hxrsmurf.info"
       # CODER_ADDRESS: "0.0.0.0:7080"
-    # networks:
-    #   - nginx-coder
 
   nginx:
     image: nginx:alpine
@@ -32,8 +30,3 @@ services:
       - ../nginx/self-signed.conf:/etc/nginx/snippets/self-signed.conf:ro
       - ../nginx/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt:ro
       - ../nginx/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key:ro
-    networks:
-      - nginx-coder
-
-networks:
-  nginx-coder:
