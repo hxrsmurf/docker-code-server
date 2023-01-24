@@ -2,6 +2,7 @@ FROM debian:stable-slim
 
 RUN apt-get update
 RUN apt install curl sudo git unzip -y
+RUN apt install docker-compose -y
 
 COPY --from=builder /tmp/terraform /usr/bin/terraform
 COPY --from=builder /tmp/zips /tmp/zips
