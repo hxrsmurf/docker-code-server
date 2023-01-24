@@ -11,6 +11,8 @@ services:
 
   coder:
     image: ghcr.io/coder/coder:latest
+    dns:
+      - 192.168.1.1
     group_add:
       - 115 # getent group docker | cut -d: -f3
     volumes:
