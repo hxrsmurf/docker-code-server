@@ -130,11 +130,19 @@ resource "docker_container" "workspace" {
     host = "host.docker.internal"
     ip   = "host-gateway"
   }
+
   volumes {
     container_path = "/home/coder/"
     volume_name    = docker_volume.home_volume.name
     read_only      = false
   }
+
+  volumes {
+    container_path = "/var/run/docker.sock"
+    volume_name    = "/var/run/docker.sock"
+    read_only      = false
+  }
+
   # Add labels in Docker to keep track of orphan resources.
   labels {
     label = "coder.owner"
