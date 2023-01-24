@@ -10,3 +10,6 @@ services:
       - ./self-signed.conf:/etc/nginx/snippets/self-signed.conf:ro
       - ./nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt:ro
       - ./nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key:ro
+networks:
+  nginx-coder:
+    # driver: bridge
