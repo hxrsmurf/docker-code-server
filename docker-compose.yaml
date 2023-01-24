@@ -1,5 +1,6 @@
 version: "2.1"
 services:
+  # No longer needed, but keeping for now.
   # code-server:
   #   build: .
   #   ports:
@@ -11,9 +12,7 @@ services:
   coder:
     image: ghcr.io/coder/coder:latest
     group_add:
-      - 115
-    # ports:
-    #     - 4000:7080
+      - 115 # getent group docker | cut -d: -f3
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./resolv.conf:/etc/resolv.conf
