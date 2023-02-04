@@ -30,12 +30,12 @@ variable "repo" {
 
 variable "docker_image" {
   description = "What Docker image would you like to use for your workspace?"
-  default     = "debian"
+  default     = "gh-debian"
 
   # List of images available for the user to choose from.
   # Delete this condition to give users free text input.
   validation {
-    condition     = contains(["base", "node", "debian", "python"], var.docker_image)
+    condition     = contains(["base", "node", "debian", "python", "gh-debian"], var.docker_image)
     error_message = "Invalid Docker image!"
   }
 
