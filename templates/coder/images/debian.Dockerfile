@@ -11,11 +11,11 @@ COPY --from=builder /tmp/zips /tmp/zips
 COPY --from=builder /tmp/b2 /usr/bin/b2
 
 RUN cd /tmp/zips && \
-    unzip aws-sam-cli-linux-x86_64.zip -d sam-installation && \
+    unzip -q aws-sam-cli-linux-x86_64.zip -d sam-installation && \
     ./sam-installation/install
 
 RUN cd /tmp/zips && \
-    unzip awscliv2.zip && \
+    unzip -q awscliv2.zip && \
     ./aws/install
 
 RUN useradd coder \

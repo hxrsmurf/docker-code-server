@@ -8,8 +8,8 @@ name: builder
 on:
   # schedule:
   #   - cron: '24 6 * * *'
-  #push:
-    #branches: [ "main", "**" ]
+  # push:
+  #   branches: [ "main", "**" ]
   #   # Publish semver tags as releases.
   #   tags: [ 'v*.*.*' ]
   # pull_request:
@@ -70,7 +70,7 @@ jobs:
           context: ./templates/coder/images
           file: ./templates/coder/images/builder.Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{env.REGISTRY}}/${{ github.repository }}:builder
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
