@@ -1,3 +1,5 @@
+FROM ghcr.io/hxrsmurf/docker-code-server:builder as builder
+
 FROM node:19
 
 RUN apt-get update
