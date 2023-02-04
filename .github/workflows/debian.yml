@@ -60,7 +60,9 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Echo Tags
-        run: echo ${{ steps.meta.outputs.tags }}
+        run: |
+          # echo ${{ steps.meta.outputs.tags }}
+          echo ${{ github.repository }}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
