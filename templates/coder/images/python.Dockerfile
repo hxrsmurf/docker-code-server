@@ -1,3 +1,5 @@
+FROM ghcr.io/hxrsmurf/docker-code-server:builder as builder
+
 FROM python:3-slim
 
 RUN apt-get update

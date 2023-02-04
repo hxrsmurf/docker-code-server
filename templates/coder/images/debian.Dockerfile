@@ -1,3 +1,5 @@
+FROM ghcr.io/hxrsmurf/docker-code-server:builder as builder
+
 FROM debian:stable-slim
 
 RUN apt-get update
