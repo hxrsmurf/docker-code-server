@@ -1,4 +1,4 @@
-name: builder
+name: Build All
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -8,8 +8,8 @@ name: builder
 on:
   # schedule:
   #   - cron: '24 6 * * *'
-  # push:
-  #   branches: [ "main", "**" ]
+  push:
+    branches: [ "main", "**" ]
   #   # Publish semver tags as releases.
   #   tags: [ 'v*.*.*' ]
   # pull_request:
@@ -23,7 +23,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
+  builder:
     runs-on: ubuntu-latest
     permissions:
       contents: read
