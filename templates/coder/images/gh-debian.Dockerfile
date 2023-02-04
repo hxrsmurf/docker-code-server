@@ -1,5 +1,5 @@
 FROM ghcr.io/hxrsmurf/docker-code-server:debian
 
-RUN apt-get update
+RUN sudo apt-get update && sudo apt-get upgrade -yf
 
 USER coder
