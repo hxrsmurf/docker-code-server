@@ -4,7 +4,7 @@ on:
   # schedule:
   #   - cron: '24 6 * * *'
   # push:
-  #   branches: [ "main", "**" ]
+  #   branches: [ "feature/*" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -14,6 +14,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  BUILD_ALL: ${{ false }}
 
 jobs:
   builder:
@@ -71,6 +72,7 @@ jobs:
   debian:
     runs-on: ubuntu-latest
     needs: builder
+    if: true
     permissions:
       contents: read
       packages: write
@@ -89,7 +91,6 @@ jobs:
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
           registry: ${{ env.REGISTRY }}
@@ -122,6 +123,7 @@ jobs:
   node:
     runs-on: ubuntu-latest
     needs: builder
+    if: true
     permissions:
       contents: read
       packages: write
@@ -140,7 +142,7 @@ jobs:
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
+        if: true
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
           registry: ${{ env.REGISTRY }}
@@ -178,6 +180,7 @@ jobs:
   python:
     runs-on: ubuntu-latest
     needs: builder
+    if: true
     permissions:
       contents: read
       packages: write
@@ -196,7 +199,7 @@ jobs:
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
+        if: true
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
           registry: ${{ env.REGISTRY }}
