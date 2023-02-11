@@ -72,7 +72,7 @@ jobs:
   debian:
     runs-on: ubuntu-latest
     needs: builder
-    if: ${{ env.BUILD_ALL == 'true' }}
+    if: env.BUILD_ALL
     permissions:
       contents: read
       packages: write
