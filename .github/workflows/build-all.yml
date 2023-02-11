@@ -3,8 +3,8 @@ name: Build All
 on:
   # schedule:
   #   - cron: '24 6 * * *'
-  push:
-    branches: [ "feature/*" ]
+  # push:
+  #   branches: [ "feature/*" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
