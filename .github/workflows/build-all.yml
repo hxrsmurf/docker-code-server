@@ -14,7 +14,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  BUILD_ALL: false
+  BUILD_ALL: ${{ false }}
 
 jobs:
   builder:
