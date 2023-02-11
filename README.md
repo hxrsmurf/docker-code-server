@@ -25,9 +25,9 @@ graph TB;
         code-server -- OVH Docker --> Docker
         aws-spot -- Spot Request --> AWS
         docker -- Ubuntu --> base
-        docker --> debian
-        docker --> node
-        docker --> python
+        base --> debian
+        base --> node
+        base --> python
     end
     subgraph extensions
         vim
