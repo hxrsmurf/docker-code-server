@@ -1,7 +1,7 @@
 FROM alpine
 
 RUN apk update
-RUN apk add wget curl unzip bash
+RUN apk add wget curl unzip jq bash
 
 RUN mkdir /tmp/zips
 
