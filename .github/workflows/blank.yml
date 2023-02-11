@@ -30,6 +30,6 @@ jobs:
             | grep -v beta \
             | sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n \
             | tail -1 \
-            | xargs -I {} curl -L https://releases.hashicorp.com/terraform/{}/terraform_{}_linux_amd64.zip
+            # | xargs -I {} curl -L https://releases.hashicorp.com/terraform/{}/terraform_{}_linux_amd64.zip
 
           ls
