@@ -7,9 +7,14 @@ My version of code-server in Docker
 
 # Procedure
 
-1. Update the password, git config email, and git config name in `config/config.yaml`
-2. Run `docker-compose up -d --build` to build a new image
-3. Access via `https://[ServerIp]:8080`
+Update the password, git config email, and git config name in
+1. In `docker-code-server/config/config.yaml`, update the password
+2. In `docker-code-server/templates/coder/variables.tf`, update name, email, and username
+3. Run `docker-code-server/nginx/generate-ssl.sh` to generate self-signed SSLs for NGINX
+4. Run `getent group docker | cut -d: -f3` to get the group id for docker
+5. Update `docker-code-server/docker-compose.yaml` with that group id
+6. Run `docker-compose up -d --build` to build a new image
+7. Access via `https://[ServerIp]:8080`
 
 # Docs
 - https://github.com/coder/code-server
