@@ -1,3 +1,5 @@
 **/.terraform/**
 private-variables.tf
 credentials
+nginx/nginx-selfsigned.key
+nginx/nginx-selfsigned.crt
