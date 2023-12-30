@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  coder:
+    build: .
+    tty: true
+    ports:
+      - 3000:8080
